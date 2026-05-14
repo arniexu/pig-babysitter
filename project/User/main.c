@@ -61,14 +61,12 @@ extern uint8_t Flag_Update; // 状态更新标志位（任意状态更新：传�
 extern uint16_t Getup_Num; // 母猪起身次数（用于上传）
 extern uint8_t Flag_Warn;  // 报警标志位（红灯亮）
 
-int len = 0;
-uint32_t send_time = 0;
-uint8_t send_flag = 0;
-uint8_t Querynetwork_mode = 1;
-uint8_t network_apuconfig_flag = 1;
-
 int main(void)
 {
+		int len = 0;
+		uint8_t Querynetwork_mode = 1;
+		uint8_t network_apuconfig_flag = 1;
+
 		TIM_KeyScan_Init(); // 定时器初始化
 		Infrared_Init();	// 红外传感器初始化
 		LED3_Init();		// LED初始化

@@ -7,11 +7,9 @@
 #include "PWM.h"
 
 extern uint8_t Frist_Run; // 上电运行标志位
-extern uint32_t send_time;
 
-uint16_t Flag_Min_30;
-uint32_t TIM3_S;
-uint32_t TIM3_count;
+static uint32_t TIM3_S;
+static uint32_t TIM3_count;
 uint8_t QueryForNetworkFlags; // 查询网路状态标志位，开机30秒后会置1
 
 // 定时器初始化
@@ -47,10 +45,6 @@ uint32_t delay_3s_cnt = 0;
 uint8_t mqttopen_sent_flag = 0;
 uint32_t delay_15s = 0;
 
-int s_time = 0;
-extern uint8_t send_flag;
-int t_time = 0;
-int flag;
 uint8_t network_sent_flag = 0;
 // 定时器3中断函数
 void TIM3_IRQHandler(void)
@@ -65,7 +59,6 @@ void TIM3_IRQHandler(void)
 		usart1_idle_loop(20);
 		usart4_idle_loop(20);
 		mqtt_time_data(&mqtt_value);
-		send_time++;
 // 修正后代码（发送mqttopen后，且未发SendNetworkmode1时，才计时）
 	if (mqttopen_sent_flag == 1 && network_sent_flag == 0)
 	{
@@ -77,17 +70,6 @@ void TIM3_IRQHandler(void)
 			delay_15s++;
 	}
 	
-		if (flag == 1)
-		{
-			s_time++;
-		}
-		if (s_time >= 120000)
-		{
-
-			send_flag = 1;
-
-			flag = 0;
-		}
 		if (Frist_Run != 0)
 		{
 			led_mode = LED_MODE_YELLOW;

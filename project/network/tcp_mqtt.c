@@ -443,9 +443,6 @@ void tcp_mqtt_into_data(char *data, int len)
 	}
 }
 
-extern uint8_t send_flag;
-
-
 void SendNetworkmode4(void)
 {
 if (network_mode == 1)
