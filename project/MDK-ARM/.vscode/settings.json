@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "blower_control.h": "c",
+        "to_servel.h": "c",
+        "mqtt_msg.h": "c",
+        "stm32f0xx.h": "c",
+        "buffermanage.h": "c",
+        "looplist.h": "c",
+        "usart.h": "c",
+        "network_module.h": "c",
+        "configmoduleblock.h": "c",
+        "iwdg.h": "c",
+        "led3.h": "c",
+        "ml307.h": "c",
+        "timer.h": "c",
+        "key.h": "c",
+        "tcp_mqtt.h": "c",
+        "limits": "c",
+        "type_traits": "c",
+        "myflash.h": "c",
+        "string.h": "c"
+    }
+}
