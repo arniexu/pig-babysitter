@@ -45,8 +45,6 @@ int dht11_delay_value = 0;
 
 uint8_t network_mode; // 网络模式，0:4g模组  1:WIFI模组
 
-extern float temp_err;
-extern float hum_err;
 uint8_t Updown_flag;
 uint16_t warn_num;
 uint16_t today_num;
