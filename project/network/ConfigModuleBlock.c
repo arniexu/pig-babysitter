@@ -25,10 +25,16 @@
 
 #include "ConfigModuleBlock.h"
 
-int ConfigModuleBlockCnt = 0;
-int ConfigModuleBlockFlage = 1;
-int ConfigModuleBlockDelay = 0;
-char *ConfigModuleBlockData;
+config_module_block_context_t g_config_module_block_context = {
+	.cnt = 0,
+	.flage = 1,
+	.delay = 0,
+	.data = NULL,
+};
+
+#define ConfigModuleBlockCnt (g_config_module_block_context.cnt)
+#define ConfigModuleBlockFlage (g_config_module_block_context.flage)
+#define ConfigModuleBlockData (g_config_module_block_context.data)
 
 /**
  * @brief  接收数据(把数据接收的数据)
