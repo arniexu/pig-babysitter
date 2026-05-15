@@ -61,14 +61,12 @@ extern uint8_t Flag_Update; // 状态更新标志位（任意状态更新：传�
 extern uint16_t Getup_Num; // 母猪起身次数（用于上传）
 extern uint8_t Flag_Warn;  // 报警标志位（红灯亮）
 
-int len = 0;
-uint32_t send_time = 0;
-uint8_t send_flag = 0;
-uint8_t Querynetwork_mode = 1;
-uint8_t network_apuconfig_flag = 1;
-
 int main(void)
 {
+		int len = 0;
+		uint8_t Querynetwork_mode = 1;
+		uint8_t network_apuconfig_flag = 1;
+
 		TIM_KeyScan_Init(); // 定时器初始化
 		Infrared_Init();	// 红外传感器初始化
 		LED3_Init();		// LED初始化
@@ -148,13 +146,10 @@ int main(void)
 				if (network_mode == 0)// 网络模块为4G
 				{  
 					
-					if (mqttopen_sent_flag == 0)
+					if (Timer_CanSendMqttOpen())
 					{
-						if(delay_15s == 15000)
-						{
-							usart1_send_mqttopen(); // 发送"mqttopen"
-							mqttopen_sent_flag = 1; // 置位发送标志，确保只发一次				
-						}							
+						usart1_send_mqttopen(); // 发送"mqttopen"
+						Timer_MarkMqttOpenSent();
 					}
 					
 					/* code */
@@ -167,14 +162,10 @@ int main(void)
 						SendControl1();	  // 向服务器发送控制
 						Translate_JSON(); // 解析307发来的数据
 						
-					if (mqttopen_sent_flag == 1 && network_sent_flag == 0)
+					if (Timer_CanSendNetworkMode())
 					{
-							if (delay_3s_cnt >= 4000) // delay_3s_cnt=3000 → 3秒（1ms*3000）
-							{
-									SendNetworkmode1();       // 执行发送
-									network_sent_flag = 1;    // 标记已发送，避免重复
-									delay_3s_cnt = 0;         // 清零计数器，防止后续溢出
-							}
+							SendNetworkmode1(); // 执行发送
+							Timer_MarkNetworkModeSent();
 					}
 	
 					}
@@ -206,10 +197,9 @@ int main(void)
 						SendControl();
 					}
 
-					if (QueryForNetworkFlags == 1)
+					if (Timer_ShouldQueryNetworkStatus())
 					{
 						/* code */
-						QueryForNetworkFlags = 0;
 						if (ConfigModuleBlock("AT+CIPSTATUS\r\n", 15, "STATUS:5", "STATUS:4", NULL, 1, 1000)) // 未联网
 						{
 							/* code */
@@ -224,7 +214,7 @@ int main(void)
 								if (apu_config_result == 0)
 								{
                 network_mode = 0; // 切4G
-                mqttopen_sent_flag = 0; // 重置4G的发送标志，确保能发"mqttopen"
+								Timer_ResetMqttOpenSent(); // 重置4G的发送标志，确保能发"mqttopen"
 								}
 							}
 						}

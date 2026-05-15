@@ -1,12 +1,6 @@
 #ifndef __USART_H
 #define __USART_H
 
-#ifndef USART_C_ // 如果没有定义
-
-#else
-#define USART_Ex_
-#endif
-
 #include <stdio.h>
 
 #include <stm32f0xx.h>

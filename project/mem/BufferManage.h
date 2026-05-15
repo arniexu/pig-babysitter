@@ -1,12 +1,6 @@
 #ifndef BUFFMANAGE_H_
 #define BUFFMANAGE_H_
 
-#ifndef BUFFMANAGE_C_ // 如果没有定义
-#define BUFFMANAGE_Cx_ extern
-#else
-#define BUFFMANAGE_Cx_
-#endif
-
 #include "stm32f0xx.h"
 #include "LoopList.h"
 

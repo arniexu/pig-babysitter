@@ -45,8 +45,6 @@ int dht11_delay_value = 0;
 
 uint8_t network_mode; // 网络模式，0:4g模组  1:WIFI模组
 
-extern float temp_err;
-extern float hum_err;
 uint8_t Updown_flag;
 uint16_t warn_num;
 uint16_t today_num;
@@ -442,9 +440,6 @@ void tcp_mqtt_into_data(char *data, int len)
 		mqtt_read_function(&mqtt_value, (unsigned char *)data, len);
 	}
 }
-
-extern uint8_t send_flag;
-
 
 void SendNetworkmode4(void)
 {

@@ -10,10 +10,11 @@
 
 void TIM3_Init(void);
 extern uint8_t Flag_Blower;
-extern uint8_t QueryForNetworkFlags; // 查询网路状态标志位，开机30秒后会置1
-extern uint8_t mqttopen_sent_flag;
-extern uint32_t delay_3s_cnt;
-extern uint8_t network_sent_flag;
-extern uint32_t delay_15s;
+uint8_t Timer_ShouldQueryNetworkStatus(void); // 查询网路状态标志位，开机30秒后会置1
+uint8_t Timer_CanSendMqttOpen(void);
+void Timer_MarkMqttOpenSent(void);
+void Timer_ResetMqttOpenSent(void);
+uint8_t Timer_CanSendNetworkMode(void);
+void Timer_MarkNetworkModeSent(void);
 
 #endif

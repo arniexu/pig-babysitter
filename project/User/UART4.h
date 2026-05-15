@@ -1,12 +1,6 @@
 #ifndef __UART4_H
 #define __UART4_H
 
-#ifndef USART_B_ // Èç¹ûÃ»ÓĞ¶¨Òå
-#define USART_Ex_ extern
-#else
-#define USART_Ex_
-#endif
-
 #include <stdio.h>
 
 #include <stm32f0xx.h>
@@ -17,30 +11,30 @@
 
 #include "tcp_mqtt.h"
 
-/****************************´®¿Ú4****************************/
+/****************************ä¸²å£4****************************/
 
-/***´®¿Ú½ÓÊÕ»·ĞÎ¶ÓÁĞ****/
-// »·ĞÎ¶ÓÁĞ±äÁ¿
-USART_Ex_ rb_t rb_t_usart4_read;
+/***ä¸²å£æ¥æ”¶ç¯å½¢é˜Ÿåˆ—****/
+// ç¯å½¢é˜Ÿåˆ—å˜é‡
+extern rb_t rb_t_usart4_read;
 #define rb_t_usart4_read_buff_len 200
-// »·ĞÎ¶ÓÁĞ»º´æ
-USART_Ex_ unsigned char rb_t_usart4_read_buff[rb_t_usart4_read_buff_len];
-// ´Ó»º´æ¿½±´Êı¾İÊ¹ÓÃ
-USART_Ex_ unsigned char usart4_read_buff_copy[rb_t_usart4_read_buff_len];
-// ×Ô¶¨Òå¿ÕÏĞÖĞ¶Ï
-USART_Ex_ int usart4_read_count_copy;
-USART_Ex_ char usart4_idle_flag;
+// ç¯å½¢é˜Ÿåˆ—ç¼“å­˜
+extern unsigned char rb_t_usart4_read_buff[rb_t_usart4_read_buff_len];
+// ä»ç¼“å­˜æ‹·è´æ•°æ®ä½¿ç”¨
+extern unsigned char usart4_read_buff_copy[rb_t_usart4_read_buff_len];
+// è‡ªå®šä¹‰ç©ºé—²ä¸­æ–­
+extern int usart4_read_count_copy;
+extern char usart4_idle_flag;
 
-/*******************************************»º´æÍøÂçÍ¨ĞÅÊı¾İ********************************************/
-// »·ĞÎ¶ÓÁĞ±äÁ¿
-USART_Ex_ rb_t rb_t_wifi_read;
+/*******************************************ç½‘ç»œé€šä¿¡é€šé“********************************************/
+// ç¯å½¢é˜Ÿåˆ—å˜é‡
+extern rb_t rb_t_wifi_read;
 #define rb_t_wifi_read_buff_len 200
-// »·ĞÎ¶ÓÁĞ»º´æ
-USART_Ex_ unsigned char rb_t_wifi_read_buff[rb_t_wifi_read_buff_len];
+// ç¯å½¢é˜Ÿåˆ—ç¼“å­˜
+extern unsigned char rb_t_wifi_read_buff[rb_t_wifi_read_buff_len];
 
 /**
- * @brief   ´®¿Ú³õÊ¼»¯
- * @param   bound  ²¨ÌØÂÊ
+ * @brief   ä¸²å£åˆå§‹åŒ–
+ * @param   bound  æ³¢ç‰¹ç‡
  * @param   None
  * @param   None
  * @retval  None
@@ -50,8 +44,8 @@ USART_Ex_ unsigned char rb_t_wifi_read_buff[rb_t_wifi_read_buff_len];
 void uart4_init(void);
 
 /**
- * @brief  ´®¿ÚÖĞ¶Ï·¢ËÍÊı¾İ
- * @param  c:Êı¾İµÄÊ×µØÖ·  cnt:·¢ËÍµÄÊı¾İ¸öÊı
+ * @brief  ä¸²å£ä¸­æ–­å‘é€æ•°æ®
+ * @param  c:æ•°æ®çš„é¦–åœ°å€  cnt:å‘é€çš„æ•°æ®ä¸ªæ•°
  * @param  None
  * @param  None
  * @retval None
@@ -60,8 +54,8 @@ void uart4_init(void);
 //void usart2_send_it(char *c, uint32_t cnt);
 
 /**
- * @brief  ´®¿Ú·¢ËÍ×Ö·û´®Êı¾İ
- * @param  *c:·¢ËÍµÄÊı¾İÖ¸Õë  cnt:Êı¾İ¸öÊı
+ * @brief  ä¸²å£å‘é€å­—ç¬¦ä¸²æ•°æ®
+ * @param  *c:å‘é€çš„æ•°æ®æŒ‡é’ˆ  cnt:æ•°æ®ä¸ªæ•°
  * @param  None
  * @param  None
  * @retval None
@@ -70,8 +64,8 @@ void uart4_init(void);
 void usart4_send(char *c, uint32_t cnt);
 
 /**
- * @brief  ´®¿Ú1×Ô¶¨Òå¿ÕÏĞÖĞ¶Ï¼ì²â(·Åµ½1ms¶¨Ê±Æ÷)
- * @param  value: ¿ÕÏĞÊ±¼ä
+ * @brief  ä¸²å£è‡ªå®šä¹‰ç©ºé—²ä¸­æ–­æ£€æµ‹(æ”¾åˆ°1mså®šæ—¶å™¨)
+ * @param  value: ç©ºé—²æ—¶é—´
  * @param  None
  * @param  None
  * @retval None
@@ -80,8 +74,8 @@ void usart4_send(char *c, uint32_t cnt);
 void usart4_idle_loop(int value);
 
 /**
- * @brief  ´®¿Ú·¢ËÍ×Ö·û´®Êı¾İ
- * @param  *c:·¢ËÍµÄÊı¾İÖ¸Õë  cnt:Êı¾İ¸öÊı
+ * @brief  ä¸²å£å‘é€å­—ç¬¦ä¸²æ•°æ®
+ * @param  *c:å‘é€çš„æ•°æ®æŒ‡é’ˆ  cnt:æ•°æ®ä¸ªæ•°
  * @param  None
  * @param  None
  * @retval None

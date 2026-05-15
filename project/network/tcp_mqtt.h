@@ -1,12 +1,6 @@
 #ifndef tcp_mqtt_h_
 #define tcp_mqtt_h_
 
-#ifndef tcp_mqtt_c_
-#define tcp_mqtt_cx_ extern
-#else
-#define tcp_mqtt_cx_
-#endif
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,24 +11,24 @@
 #include "mqtt.h"
 #include "ConfigModuleNoBlock.h"
 
-tcp_mqtt_cx_ mqtt_t mqtt_value; // mqtt 变量
+extern mqtt_t mqtt_value; // mqtt 变量
 
-tcp_mqtt_cx_ int tcp_mqtt_index;
-tcp_mqtt_cx_ char mqtt_client_id[66]; // client_id
-tcp_mqtt_cx_ char tcp_mqtt_addr[55];  // IP地址(可以填写域名也可以填写IP)
-tcp_mqtt_cx_ char tcp_mqtt_ip[55];
-tcp_mqtt_cx_ int tcp_mqtt_port; // TCP服务器(MQTT服务器)端口号
+extern int tcp_mqtt_index;
+extern char mqtt_client_id[66]; // client_id
+extern char tcp_mqtt_addr[55];  // IP地址(可以填写域名也可以填写IP)
+extern char tcp_mqtt_ip[55];
+extern int tcp_mqtt_port; // TCP服务器(MQTT服务器)端口号
 
-tcp_mqtt_cx_ int connect_mqtt_delay_value;
-tcp_mqtt_cx_ int dht11_delay_value;
+extern int connect_mqtt_delay_value;
+extern int dht11_delay_value;
 
-tcp_mqtt_cx_ unsigned char tcp_mqtt_buff[128];
+extern unsigned char tcp_mqtt_buff[128];
 
-tcp_mqtt_cx_ char mqtt_connect_flag; // MQTT连接标志 1:连接上
+extern char mqtt_connect_flag; // MQTT连接标志 1:连接上
 
-tcp_mqtt_cx_ uint8_t Updown_flag;
+extern uint8_t Updown_flag;
 
-tcp_mqtt_cx_ uint8_t network_mode; // 网络模式，0:4g模组  1:WIFI模组
+extern uint8_t network_mode; // 网络模式，0:4g模组  1:WIFI模组
 /**
  * @brief   初始化MQTT的一些参数
  * @param   None
