@@ -11,6 +11,8 @@ extern uint8_t Frist_Run; // 上电运行标志位
 static uint32_t TIM3_S;
 static uint32_t TIM3_count;
 static uint8_t QueryForNetworkFlags; // 查询网路状态标志位，开机30秒后会置1
+static const uint32_t MQTT_OPEN_DELAY_MS = 15000;
+static const uint32_t NETWORK_MODE_DELAY_MS = 4000;
 
 // 定时器初始化
 void TIM3_Init(void)
@@ -40,7 +42,7 @@ void TIM3_Init(void)
 	// 使能TIM3
 	TIM_Cmd(TIM3, ENABLE); // 初始时关闭定时器
 }
-// 延时计数器（单位：ms，累计到3000表示3秒）
+// 延时计数器（单位：ms）
 static uint32_t delay_3s_cnt = 0;
 static uint8_t mqttopen_sent_flag = 0;
 static uint32_t delay_15s = 0;
@@ -59,7 +61,7 @@ uint8_t Timer_ShouldQueryNetworkStatus(void)
 
 uint8_t Timer_CanSendMqttOpen(void)
 {
-	return (mqttopen_sent_flag == 0 && delay_15s == 15000);
+	return (mqttopen_sent_flag == 0 && delay_15s == MQTT_OPEN_DELAY_MS);
 }
 
 void Timer_MarkMqttOpenSent(void)
@@ -74,7 +76,7 @@ void Timer_ResetMqttOpenSent(void)
 
 uint8_t Timer_CanSendNetworkMode(void)
 {
-	return (mqttopen_sent_flag == 1 && network_sent_flag == 0 && delay_3s_cnt >= 4000);
+	return (mqttopen_sent_flag == 1 && network_sent_flag == 0 && delay_3s_cnt >= NETWORK_MODE_DELAY_MS);
 }
 
 void Timer_MarkNetworkModeSent(void)
@@ -95,13 +97,13 @@ void TIM3_IRQHandler(void)
 		usart1_idle_loop(20);
 		usart4_idle_loop(20);
 		mqtt_time_data(&mqtt_value);
-// 修正后代码（发送mqttopen后，且未发SendNetworkmode1时，才计时）
+// 发送mqttopen后，且未发SendNetworkmode1时，才计时
 	if (mqttopen_sent_flag == 1 && network_sent_flag == 0)
 	{
-			delay_3s_cnt++; // 1ms递增1，累计到3000即3秒
+			delay_3s_cnt++;
 	}
 	
-	if(delay_15s < 15000)
+	if(delay_15s < MQTT_OPEN_DELAY_MS)
 	{
 			delay_15s++;
 	}
