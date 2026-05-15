@@ -1,12 +1,6 @@
 #ifndef network_module_h_
 #define network_module_h_
 
-#ifndef network_module_c_ // ���û�ж���
-#define network_module_cx_ extern
-#else
-#define network_module_cx_
-#endif
-
 #include <string.h>
 #include <stdio.h>
 

@@ -8,12 +8,6 @@
 #ifndef APP_INCLUDE_DRIVER_MQTT_H_
 #define APP_INCLUDE_DRIVER_MQTT_H_
 
-#ifndef MQTT_C_ // 如果没有定义
-#define MQTT_Ex_ extern
-#else
-#define MQTT_Ex_
-#endif
-
 #include <string.h>
 #include <stdint.h>
 #include "mqtt_msg.h"

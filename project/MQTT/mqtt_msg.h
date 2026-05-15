@@ -1,12 +1,6 @@
 #ifndef MQTTCLIENT_H_
 #define MQTTCLIENT_H_
 
-#ifndef MQTTCLIENT_C_ // 如果没有定义
-#define MQTTCLIENT_Cx_ extern
-#else
-#define MQTTCLIENT_Cx_
-#endif
-
 #include "string.h"
 #include "stm32f0xx.h"
 

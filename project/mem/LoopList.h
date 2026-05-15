@@ -1,12 +1,6 @@
 #ifndef LOOPLIST_H_
 #define LOOPLIST_H_
 
-#ifndef LOOPLIST_C_
-#define LOOPLIST_Ex_ extern
-#else
-#define LOOPLIST_Ex_
-#endif
-
 #include "stm32f0xx.h"
 
 #define min(a, b) (a) < (b) ? (a) : (b) ///< 获取最小值

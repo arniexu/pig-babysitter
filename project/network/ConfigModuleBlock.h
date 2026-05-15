@@ -10,13 +10,7 @@
 #include "usart.h"
 #include "iwdg.h"
 
-#ifndef CONFIGMODULEBLOCK_C_ // 如果没有定义
-#define CONFIGMODULEBLOCK_Ex_ extern
-#else
-#define CONFIGMODULEBLOCK_Ex_
-#endif
-
-CONFIGMODULEBLOCK_Ex_ int ConfigModuleBlockDelay;
+extern int ConfigModuleBlockDelay;
 
 /**
  * @brief  发送指令配置模块,阻塞版
