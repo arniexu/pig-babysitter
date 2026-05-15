@@ -33,8 +33,8 @@ extern rb_t rb_t_wifi_read;
 extern unsigned char rb_t_wifi_read_buff[rb_t_wifi_read_buff_len];
 
 /**
- * @brief   ���ڳ�ʼ��
- * @param   bound  ������
+ * @brief   串口初始化
+ * @param   bound  波特率
  * @param   None
  * @param   None
  * @retval  None
@@ -44,8 +44,8 @@ extern unsigned char rb_t_wifi_read_buff[rb_t_wifi_read_buff_len];
 void uart4_init(void);
 
 /**
- * @brief  �����жϷ�������
- * @param  c:���ݵ��׵�ַ  cnt:���͵����ݸ���
+ * @brief  串口中断发送数据
+ * @param  c:数据的首地址  cnt:发送的数据个数
  * @param  None
  * @param  None
  * @retval None
@@ -54,8 +54,8 @@ void uart4_init(void);
 //void usart2_send_it(char *c, uint32_t cnt);
 
 /**
- * @brief  ���ڷ����ַ�������
- * @param  *c:���͵�����ָ��  cnt:���ݸ���
+ * @brief  串口发送字符串数据
+ * @param  *c:发送的数据指针  cnt:数据个数
  * @param  None
  * @param  None
  * @retval None
@@ -64,8 +64,8 @@ void uart4_init(void);
 void usart4_send(char *c, uint32_t cnt);
 
 /**
- * @brief  ����1�Զ�������жϼ��(�ŵ�1ms��ʱ��)
- * @param  value: ����ʱ��
+ * @brief  串口自定义空闲中断检测(放到1ms定时器)
+ * @param  value: 空闲时间
  * @param  None
  * @param  None
  * @retval None
@@ -74,8 +74,8 @@ void usart4_send(char *c, uint32_t cnt);
 void usart4_idle_loop(int value);
 
 /**
- * @brief  ���ڷ����ַ�������
- * @param  *c:���͵�����ָ��  cnt:���ݸ���
+ * @brief  串口发送字符串数据
+ * @param  *c:发送的数据指针  cnt:数据个数
  * @param  None
  * @param  None
  * @retval None
