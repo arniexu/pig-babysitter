@@ -31,7 +31,14 @@
 #define FLASH_CRC_WORDS 1U
 
 // 扩展FlashData：前3个保留原用途，后4个存储IMEI（16字节）
-extern uint32_t FlashData[FLASH_DATA_WORDS];
+typedef struct
+{
+	uint32_t flash_data[FLASH_DATA_WORDS];
+} myflash_context_t;
+
+extern myflash_context_t g_myflash_context;
+
+#define FlashData (g_myflash_context.flash_data)
 // IMEI在FlashData中的起始索引
 #define FLASH_IMEI_INDEX 3
 /***************************************************************************************

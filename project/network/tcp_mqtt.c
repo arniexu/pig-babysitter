@@ -16,42 +16,41 @@
 
 mqtt_t mqtt_value; // mqtt 变量
 
-// TCP
-int tcp_mqtt_index = 0;						// socket编号
-char tcp_mqtt_addr[55] = "iot.smartgw.net"; // IP地址(可以填写域名也可以填写IP)
-// char tcp_mqtt_addr[55]="broker.emqx.io";
-
-char tcp_mqtt_ip[55];
-int tcp_mqtt_port = 18883; // TCP服务器(MQTT服务器)端口号
-// MQTT
-char mqtt_client_id[66] = "";								 // client_id(默认使用模组的MAC,用户不需要填写)
-char mqtt_user_name[20] = "protect_child";					 // 用户名
-char mqtt_password[50] = "c1g7ugsq9g509h9rkdtk29i1va7tdqrk"; // 密码
-char mqtt_keepalive = 60;									 // 心跳包时间
-
-char mqtt_publish_topic[60] = "";		// 存储发布的主题
-char mqtt_publish_topic_event[60] = ""; // 存储发布事件的主题
-char mqtt_subscribe_topic[60] = "";		// 存储订阅的主题
-
-char mqtt_connect_flag = 0; // MQTT连接标志 1:连接上
-char mqtt_connect_cnt = 0;
-
-unsigned char *p_str;
-unsigned char tcp_mqtt_buff[128]; // mqtt发送缓冲区
-int tcp_mqtt_len = 0;
-
-int connect_mqtt_delay_value = 0;
-int dht11_delay_value = 0;
-
-uint8_t network_mode; // 网络模式，0:4g模组  1:WIFI模组
-
-uint8_t Updown_flag;
-uint16_t warn_num;
-uint16_t today_num;
-uint8_t ESP_Flag_Blower, ESP_Flag_Heat; // 定义小程序中设定的风机开关量和加热开关量
-
-uint8_t light_state; // 灯的状态
-uint8_t warn_num_Flag, light_state_Flag, fan_state_Flag, wind_temp_Flag, warn_light_Flag, birth_event_flag, work_mode_flag, birth_led_flag;
+tcp_mqtt_context_t g_tcp_mqtt_context = {
+	.tcp_mqtt_index = 0,
+	.mqtt_client_id = "",
+	.tcp_mqtt_addr = "iot.smartgw.net",
+	.tcp_mqtt_ip = "",
+	.tcp_mqtt_port = 18883,
+	.connect_mqtt_delay_value = 0,
+	.dht11_delay_value = 0,
+	.tcp_mqtt_buff = {0},
+	.mqtt_connect_flag = 0,
+	.mqtt_connect_cnt = 0,
+	.Updown_flag = 0,
+	.network_mode = 0,
+	.warn_num = 0,
+	.today_num = 0,
+	.ESP_Flag_Blower = 0,
+	.ESP_Flag_Heat = 0,
+	.light_state = 0,
+	.warn_num_Flag = 0,
+	.light_state_Flag = 0,
+	.fan_state_Flag = 0,
+	.wind_temp_Flag = 0,
+	.warn_light_Flag = 0,
+	.birth_event_flag = 0,
+	.work_mode_flag = 0,
+	.birth_led_flag = 0,
+	.mqtt_user_name = "protect_child",
+	.mqtt_password = "c1g7ugsq9g509h9rkdtk29i1va7tdqrk",
+	.mqtt_keepalive = 60,
+	.mqtt_publish_topic = "",
+	.mqtt_publish_topic_event = "",
+	.mqtt_subscribe_topic = "",
+	.p_str = NULL,
+	.tcp_mqtt_len = 0,
+};
 
 
 /**

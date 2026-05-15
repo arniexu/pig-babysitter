@@ -26,9 +26,16 @@ typedef enum
 	
 } LED_Mode;
 
-extern LED_Mode led_mode;
+typedef struct
+{
+	LED_Mode led_mode;
+	uint8_t warn_light;
+} led3_context_t;
 
-extern uint8_t warn_light;
+extern led3_context_t g_led3_context;
+
+#define led_mode (g_led3_context.led_mode)
+#define warn_light (g_led3_context.warn_light)
 
 void LED3_Init(void);
 void LED_ON(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);

@@ -12,9 +12,10 @@
 #define Pin_Yel GPIO_Pin_7 // 黄灯
 #define Pin_Gre GPIO_Pin_6 // 绿灯
 
-LED_Mode led_mode;
-
-uint8_t warn_light;
+led3_context_t g_led3_context = {
+	.led_mode = LED_MODE_OFF,
+	.warn_light = 0,
+};
 
 // 初始化3个LED引脚
 void LED3_Init(void)

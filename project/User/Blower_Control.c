@@ -23,37 +23,32 @@
 
 #define SATE_TIME 300 // 连续吹风间隔时间300S
 
-// uint8_t state = IDLE;
-uint8_t Blower_Flag, Heat_Flag;
-
-volatile uint8_t Flag_Sensor_Up, Flag_Sensor_Down1, Flag_Sensor_Down2; // 传感器有效标志位
-uint8_t ML307_Flag_Update;											   // 状态更新标志位：0/1（任意状态更新）
-
-uint8_t Getup_Flag = 0;
-uint16_t Getup_Num = 0; // 母猪起身次数
-
-uint8_t TIM6_Time;	   // 电机吹风时间
-uint8_t Flag_Warn = 0; // 报警标志位
-
-uint32_t Blower_sate_second = 0; // 吹风间隔秒数
-
-uint8_t Frist_Run;
-uint32_t Frist_Run_Time;
-
-uint8_t Key_Heat = 0; // 热机键值
-
-volatile uint8_t Flag_exti_3 = 0;
-volatile uint8_t Flag_exti_4 = 0;
-volatile uint8_t Flag_exti_5 = 0;
+blower_control_context_t g_blower_control_context = {
+	.Blower_Flag = 0,
+	.Heat_Flag = 0,
+	.Flag_Sensor_Up = 0,
+	.Flag_Sensor_Down1 = 0,
+	.Flag_Sensor_Down2 = 0,
+	.ML307_Flag_Update = 0,
+	.Getup_Num = 0,
+	.Flag_Warn = 0,
+	.Getup_Flag = 0,
+	.TIM6_Time = 0,
+	.TIM6_Frist = 0,
+	.Frist_Run_Time = 0,
+	.Frist_Run = 0,
+	.Key_Heat = 0,
+	.Flag_exti_3 = 0,
+	.Flag_exti_4 = 0,
+	.Flag_exti_5 = 0,
+	.Blower_sate_second = 0,
+	.state = IDLE,
+	.work_mode = POSTPARTUM_MODE,
+	.key_pressed = 0,
+};
 
 void TIM_KeyScan_Init(void);
 void TIM6_IRQHandler(void);
-
-Blowerstate state;
-WorkMode work_mode;
-
- 
-volatile uint8_t key_pressed = 0;
 
 /*
 函数功能：红外引脚初始化（输入）

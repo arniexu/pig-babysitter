@@ -6,7 +6,9 @@
 #define Pin_Heat_Key GPIO_Pin_15 // 加热按键控制引脚
 //#define GPIO_PWM_Key GPIOB
 
-uint8_t KeyNum_Heat = 0;
+key_context_t g_key_context = {
+	.key_num_heat = 0,
+};
 
 
 //// --- 全局变量定义 ---
@@ -139,7 +141,6 @@ void Key_Tick(void)
 //        }
 //    }
 //}
-
 
 
 
