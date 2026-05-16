@@ -241,12 +241,12 @@ void ConfigModuleRunNext(int delay)
  **/
 void SendConfigFunction(char *order, void (*FunctionSend)(), char *HopeReturn1, char *HopeReturn2, void (*FunctionParse)(char *data, int len), uint32_t ConfigFunctionValue)
 {
-	memset(HopeReturnData1, NULL, strlen(HopeReturnData1));
-	memset(HopeReturnData2, NULL, strlen(HopeReturnData2));
+	memset(HopeReturnData1, 0, sizeof(HopeReturnData1));
+	memset(HopeReturnData2, 0, sizeof(HopeReturnData2));
 	if (HopeReturn1 != NULL)
-		sprintf(HopeReturnData1, "%s", HopeReturn1); // 拷贝数据到数组 HopeReturn1,希望返回的数据1
+		snprintf(HopeReturnData1, sizeof(HopeReturnData1), "%s", HopeReturn1); // 拷贝数据到数组 HopeReturn1,希望返回的数据1
 	if (HopeReturn2 != NULL)
-		sprintf(HopeReturnData2, "%s", HopeReturn2); // 拷贝数据到数组 HopeReturn1,希望返回的数据2
+		snprintf(HopeReturnData2, sizeof(HopeReturnData2), "%s", HopeReturn2); // 拷贝数据到数组 HopeReturn1,希望返回的数据2
 	if (FunctionSend != NULL)
 		FunctionSend(); // 调用一个函数发送指令
 
