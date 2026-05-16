@@ -40,8 +40,10 @@ uint32_t SendNextDelay = 0;	  // 接收SendConfigFunction函数最后一个参�
 int Cnt = 0;				  // 记录运行状态发送的次数
 char DataReturnFlage = 0;	  // 是否返回了预期的数据
 
-char HopeReturnData1[20] = ""; // 存储希望返回的数据
-char HopeReturnData2[20] = ""; // 存储希望返回的数据
+#define HOPE_RETURN_DATA1_LEN 20
+#define HOPE_RETURN_DATA2_LEN 20
+char HopeReturnData1[HOPE_RETURN_DATA1_LEN] = ""; // 存储希望返回的数据
+char HopeReturnData2[HOPE_RETURN_DATA2_LEN] = ""; // 存储希望返回的数据
 
 void (*ConfigConnectDispose)(char *data, int len); // 定义一个函数指针变量,用来处理模块返回的数据
 void ConfigModuleRunNext(int delay);
@@ -241,12 +243,12 @@ void ConfigModuleRunNext(int delay)
  **/
 void SendConfigFunction(char *order, void (*FunctionSend)(), char *HopeReturn1, char *HopeReturn2, void (*FunctionParse)(char *data, int len), uint32_t ConfigFunctionValue)
 {
-	memset(HopeReturnData1, 0, sizeof(HopeReturnData1));
-	memset(HopeReturnData2, 0, sizeof(HopeReturnData2));
+	memset(HopeReturnData1, 0, HOPE_RETURN_DATA1_LEN);
+	memset(HopeReturnData2, 0, HOPE_RETURN_DATA2_LEN);
 	if (HopeReturn1 != NULL)
-		snprintf(HopeReturnData1, sizeof(HopeReturnData1), "%s", HopeReturn1); // 拷贝数据到数组 HopeReturn1,希望返回的数据1
+		snprintf(HopeReturnData1, HOPE_RETURN_DATA1_LEN, "%s", HopeReturn1); // 拷贝数据到数组 HopeReturn1,希望返回的数据1
 	if (HopeReturn2 != NULL)
-		snprintf(HopeReturnData2, sizeof(HopeReturnData2), "%s", HopeReturn2); // 拷贝数据到数组 HopeReturn1,希望返回的数据2
+		snprintf(HopeReturnData2, HOPE_RETURN_DATA2_LEN, "%s", HopeReturn2); // 拷贝数据到数组 HopeReturn1,希望返回的数据2
 	if (FunctionSend != NULL)
 		FunctionSend(); // 调用一个函数发送指令
 
