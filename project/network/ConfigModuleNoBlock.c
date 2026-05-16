@@ -248,7 +248,7 @@ void SendConfigFunction(char *order, void (*FunctionSend)(), char *HopeReturn1, 
 	if (HopeReturn1 != NULL)
 		snprintf(HopeReturnData1, HOPE_RETURN_DATA1_LEN, "%s", HopeReturn1); // 拷贝数据到数组 HopeReturn1,希望返回的数据1
 	if (HopeReturn2 != NULL)
-		snprintf(HopeReturnData2, HOPE_RETURN_DATA2_LEN, "%s", HopeReturn2); // 拷贝数据到数组 HopeReturn1,希望返回的数据2
+		snprintf(HopeReturnData2, HOPE_RETURN_DATA2_LEN, "%s", HopeReturn2); // 拷贝数据到数组 HopeReturnData2,希望返回的数据2
 	if (FunctionSend != NULL)
 		FunctionSend(); // 调用一个函数发送指令
 
