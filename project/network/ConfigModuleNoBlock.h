@@ -8,11 +8,32 @@
 #include "network_module.h"
 #include "cString.h"
 
-extern uint32_t ConfigModuleNoBlockCnt;  // 配置函数延时变量
-extern char ConfigModuleNoBlockFlage;    // 1-配置完 0-未配置完
-extern int ConfigModuleNoBlockCaseValue; // 控制执行哪一条Case 语句
+typedef struct
+{
+	uint32_t cnt;
+	char flage;
+	int case_value;
+	uint32_t compare_value;
+	uint32_t send_next_delay;
+	int retry_cnt;
+	char data_return_flage;
+	char hope_return_data1[20];
+	char hope_return_data2[20];
+	void (*connect_dispose)(char *data, int len);
+} config_module_noblock_context_t;
 
-extern void (*ConfigConnectDispose)(char *data, int len); // 定义一个函数指针变量,用来处理模块返回的数据
+extern config_module_noblock_context_t g_config_module_noblock_context;
+
+#define ConfigModuleNoBlockCnt (g_config_module_noblock_context.cnt)
+#define ConfigModuleNoBlockFlage (g_config_module_noblock_context.flage)
+#define ConfigModuleNoBlockCaseValue (g_config_module_noblock_context.case_value)
+#define CompareValue (g_config_module_noblock_context.compare_value)
+#define SendNextDelay (g_config_module_noblock_context.send_next_delay)
+#define Cnt (g_config_module_noblock_context.retry_cnt)
+#define DataReturnFlage (g_config_module_noblock_context.data_return_flage)
+#define HopeReturnData1 (g_config_module_noblock_context.hope_return_data1)
+#define HopeReturnData2 (g_config_module_noblock_context.hope_return_data2)
+#define ConfigConnectDispose (g_config_module_noblock_context.connect_dispose)
 
 void ConfigModuleNoBlock(void);
 

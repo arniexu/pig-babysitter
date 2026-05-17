@@ -11,6 +11,41 @@
 
 #include "tcp_mqtt.h"
 
+typedef struct
+{
+	int usart1_read_count;
+	int usart1_read_count_copy;
+	int usart1_read_idle_count;
+	char usart1_idle_flag;
+	int usart2_read_count;
+	unsigned char usart2_idle_flag;
+	int usart4_read_count;
+	int usart4_read_count_copy;
+	int usart4_read_idle_count;
+	char usart4_idle_flag;
+	unsigned char imei_buff[16];
+	unsigned char imei_receive_cnt;
+	int imei_receive_done;
+	int imei_receiving_en;
+} usart_runtime_context_t;
+
+extern usart_runtime_context_t g_usart_runtime_context;
+
+#define usart1_read_count (g_usart_runtime_context.usart1_read_count)
+#define usart1_read_count_copy (g_usart_runtime_context.usart1_read_count_copy)
+#define usart1_read_idle_count (g_usart_runtime_context.usart1_read_idle_count)
+#define usart1_idle_flag (g_usart_runtime_context.usart1_idle_flag)
+#define usart2_read_count (g_usart_runtime_context.usart2_read_count)
+#define usart2_idle_flag (g_usart_runtime_context.usart2_idle_flag)
+#define usart4_read_count (g_usart_runtime_context.usart4_read_count)
+#define usart4_read_count_copy (g_usart_runtime_context.usart4_read_count_copy)
+#define usart4_read_idle_count (g_usart_runtime_context.usart4_read_idle_count)
+#define usart4_idle_flag (g_usart_runtime_context.usart4_idle_flag)
+#define imei_buff (g_usart_runtime_context.imei_buff)
+#define imei_receive_cnt (g_usart_runtime_context.imei_receive_cnt)
+#define imei_receive_done (g_usart_runtime_context.imei_receive_done)
+#define imei_receiving_en (g_usart_runtime_context.imei_receiving_en)
+
 /****************************串口1****************************/
 
 /***串口接收环形队列****/
@@ -21,9 +56,6 @@ extern rb_t rb_t_usart1_read;
 extern unsigned char rb_t_usart1_read_buff[rb_t_usart1_read_buff_len];
 // 从缓存拷贝数据使用
 extern unsigned char usart1_read_buff_copy[rb_t_usart1_read_buff_len];
-// 自定义空闲中断
-extern int usart1_read_count_copy;
-extern char usart1_idle_flag;
 
 /*******************************************usart2********************************************/
 
@@ -33,10 +65,6 @@ extern rb_t rb_t_usart2_read;
 extern unsigned char rb_t_usart2_read_buff[rb_t_usart2_read_buff_len];
 // 从缓存拷贝数据使用
 extern unsigned char usart2_read_buff_copy[rb_t_usart2_read_buff_len];
-// 接收计数
-extern int usart2_read_count;
-// 空闲中断标志
-extern unsigned char usart2_idle_flag; // 标志
 
 // 发送环形队列
 extern rb_t rb_t_usart2_send;
@@ -57,8 +85,6 @@ extern rb_t rb_t_usart4_read;
 #define rb_t_usart4_read_buff_len 200
 extern unsigned char rb_t_usart4_read_buff[rb_t_usart4_read_buff_len];
 extern unsigned char usart4_read_buff_copy[rb_t_usart4_read_buff_len];
-extern int usart4_read_count;
-extern char usart4_idle_flag;
 
 void usart1_send_mqttopen(void);
 void imei_main_loop_process(void);

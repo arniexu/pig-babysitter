@@ -20,10 +20,22 @@ unsigned char rb_t_usart1_read_buff[rb_t_usart1_read_buff_len];
 // 从缓存拷贝数据使用
 unsigned char usart1_read_buff_copy[rb_t_usart1_read_buff_len];
 // 自定义空闲中断
-int usart1_read_count = 0;
-int usart1_read_count_copy = 0;
-int usart1_read_idle_count = 0;
-char usart1_idle_flag = 0;
+usart_runtime_context_t g_usart_runtime_context = {
+	.usart1_read_count = 0,
+	.usart1_read_count_copy = 0,
+	.usart1_read_idle_count = 0,
+	.usart1_idle_flag = 0,
+	.usart2_read_count = 0,
+	.usart2_idle_flag = 0,
+	.usart4_read_count = 0,
+	.usart4_read_count_copy = 0,
+	.usart4_read_idle_count = 0,
+	.usart4_idle_flag = 0,
+	.imei_buff = {0},
+	.imei_receive_cnt = 0,
+	.imei_receive_done = 0,
+	.imei_receiving_en = 0,
+};
 
 /*******************************************usart2********************************************/
 // 接收环形队列
@@ -32,18 +44,12 @@ rb_t rb_t_usart2_read;
 unsigned char rb_t_usart2_read_buff[rb_t_usart2_read_buff_len];
 // 从缓存拷贝数据使用
 unsigned char usart2_read_buff_copy[rb_t_usart2_read_buff_len];
-// 接收计数
-int usart2_read_count = 0;
-
 // 发送环形队列
 rb_t rb_t_usart2_send;
 // 环形队列缓存数组
 unsigned char rb_t_usart2_send_buff[rb_t_usart2_send_buff_len];
 // 串口提取环形队列1个字节
 unsigned char rb_t_usart2_send_byte;
-// 空闲中断标志
-unsigned char usart2_idle_flag = 0;
-
 /*******************************************缓存网络通信数据********************************************/
 // 环形队列变量
 rb_t rb_t_net_read;
@@ -56,19 +62,6 @@ rb_t rb_t_usart4_read;
 unsigned char rb_t_usart4_read_buff[rb_t_usart4_read_buff_len];
 unsigned char usart4_read_buff_copy[rb_t_usart4_read_buff_len];
 
-int usart4_read_count = 0;
-int usart4_read_count_copy = 0;
-int usart4_read_idle_count = 0;
-char usart4_idle_flag = 0;
-
-// IMEI缓存（15位数据 + 1位字符串结束符'\0'）
-unsigned char imei_buff[16] = {0};
-// IMEI接收计数（0-15）
-unsigned char imei_receive_cnt = 0;
-// IMEI接收完成标志（中断置位，主循环清零）
-int imei_receive_done = 0;
-// IMEI接收使能标志（过滤非数字数据，避免错误接收）
-int imei_receiving_en = 0;
 /**
  * @brief   串口初始化
  * @param   bound  波特率

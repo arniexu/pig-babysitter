@@ -17,19 +17,6 @@
 #define Pin_Blower GPIO_Pin_13 // 风机输出引脚（输出）
 #define Pin_Heat GPIO_Pin_12   // 加热装置引脚（输出）
 
-// extern volatile uint8_t Flag_Sensor_Up, Flag_Sensor_Down1, Flag_Sensor_Down2; // 传感器有效标志位
-extern uint8_t ML307_Flag_Update; // 状态更新标志位（任意状态更新）
-extern uint16_t Getup_Num;        // 母猪起身次数
-extern uint8_t Flag_Warn;         // 报警标志位
-extern uint8_t Getup_Flag;
-
-extern uint8_t TIM6_Time; // 电机吹风时间
-extern uint8_t TIM6_Frist;
-extern uint32_t Frist_Run_Time;
-extern uint8_t Frist_Run;
-
-extern uint8_t Key_Heat;
-
 typedef enum
 {
     POSTPARTUM_MODE = 0, // 产后模式
@@ -45,11 +32,54 @@ typedef enum
     DEVICE_ERROR
 } Blowerstate;
 
-extern Blowerstate state;
-extern WorkMode work_mode;
+typedef struct
+{
+	uint8_t Blower_Flag;
+	uint8_t Heat_Flag;
+	volatile uint8_t Flag_Sensor_Up;
+	volatile uint8_t Flag_Sensor_Down1;
+	volatile uint8_t Flag_Sensor_Down2;
+	uint8_t ML307_Flag_Update;
+	uint16_t Getup_Num;
+	uint8_t Flag_Warn;
+	uint8_t Getup_Flag;
+	uint8_t TIM6_Time;
+	uint8_t TIM6_Frist;
+	uint32_t Frist_Run_Time;
+	uint8_t Frist_Run;
+	uint8_t Key_Heat;
+	volatile uint8_t Flag_exti_3;
+	volatile uint8_t Flag_exti_4;
+	volatile uint8_t Flag_exti_5;
+	uint32_t Blower_sate_second;
+	Blowerstate state;
+	WorkMode work_mode;
+	volatile uint8_t key_pressed;
+} blower_control_context_t;
 
+extern blower_control_context_t g_blower_control_context;
 
-extern volatile uint8_t key_pressed;
+#define Blower_Flag (g_blower_control_context.Blower_Flag)
+#define Heat_Flag (g_blower_control_context.Heat_Flag)
+#define Flag_Sensor_Up (g_blower_control_context.Flag_Sensor_Up)
+#define Flag_Sensor_Down1 (g_blower_control_context.Flag_Sensor_Down1)
+#define Flag_Sensor_Down2 (g_blower_control_context.Flag_Sensor_Down2)
+#define ML307_Flag_Update (g_blower_control_context.ML307_Flag_Update)
+#define Getup_Num (g_blower_control_context.Getup_Num)
+#define Flag_Warn (g_blower_control_context.Flag_Warn)
+#define Getup_Flag (g_blower_control_context.Getup_Flag)
+#define TIM6_Time (g_blower_control_context.TIM6_Time)
+#define TIM6_Frist (g_blower_control_context.TIM6_Frist)
+#define Frist_Run_Time (g_blower_control_context.Frist_Run_Time)
+#define Frist_Run (g_blower_control_context.Frist_Run)
+#define Key_Heat (g_blower_control_context.Key_Heat)
+#define Flag_exti_3 (g_blower_control_context.Flag_exti_3)
+#define Flag_exti_4 (g_blower_control_context.Flag_exti_4)
+#define Flag_exti_5 (g_blower_control_context.Flag_exti_5)
+#define Blower_sate_second (g_blower_control_context.Blower_sate_second)
+#define state (g_blower_control_context.state)
+#define work_mode (g_blower_control_context.work_mode)
+#define key_pressed (g_blower_control_context.key_pressed)
 /*
 函数功能：红外引脚初始化
 */

@@ -10,7 +10,17 @@
 #include "usart.h"
 #include "iwdg.h"
 
-extern int ConfigModuleBlockDelay;
+typedef struct
+{
+	int cnt;
+	int flage;
+	int delay;
+	char *data;
+} config_module_block_context_t;
+
+extern config_module_block_context_t g_config_module_block_context;
+
+#define ConfigModuleBlockDelay (g_config_module_block_context.delay)
 
 /**
  * @brief  发送指令配置模块,阻塞版

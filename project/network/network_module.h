@@ -11,8 +11,33 @@
 
 #include "ConfigModuleBlock.h"
 
-extern char network_config_flage; // 是不是在配网
-extern uint8_t network_flag;      // 驻网标志
+typedef struct
+{
+	char network_config_flage; // 是不是在配网
+	uint8_t network_flag;	   // 驻网标志
+	char ssid[32];			   // 记录路由器名称
+	char password[64];		   // 记录密码
+	char mac[18];			   // 记录设备MAC
+	char ip[21];			   // 记录设备连接路由器分得的IP
+} network_module_config_state_t;
+
+typedef struct
+{
+	char flag;
+	char cnt;
+	char count;
+	char start;
+	char id;
+	char buff[20];
+	char buff_len;
+	int data_len;
+} network_module_recv_parse_state_t;
+
+extern network_module_config_state_t g_network_module_config_state;
+extern network_module_recv_parse_state_t g_network_module_recv_parse_state;
+
+#define network_config_flage (g_network_module_config_state.network_config_flage)
+#define network_flag (g_network_module_config_state.network_flag)
 
 /**
  * @brief  APUConfig

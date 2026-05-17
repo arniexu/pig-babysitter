@@ -25,7 +25,9 @@
 #include "tcp_mqtt.h"
 #include "usart.h"
 
-uint32_t FlashData[FLASH_DATA_WORDS]; // 工作模式、风盾标志、加热标志，IMEI卡号
+myflash_context_t g_myflash_context = {
+    .flash_data = {0},
+};
 
 static uint32_t flash_crc32_calc(const uint32_t *data, uint8_t words)
 {
@@ -225,7 +227,6 @@ uint8_t flash_read(void)
     return 1;
 }
 	
-
 
 
 

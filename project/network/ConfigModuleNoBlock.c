@@ -31,21 +31,19 @@
 #include "tcp_mqtt.h"
 
 /*********************************************************************************************************/
-uint32_t ConfigModuleNoBlockCnt = 0;  // 配置函数延时变量,定时器内部累加
-int ConfigModuleNoBlockCaseValue = 0; // 控制执行哪一条Case 语句
-char ConfigModuleNoBlockFlage = 0;	  // 1-配置完连接 0-未配置完连接
+config_module_noblock_context_t g_config_module_noblock_context = {
+	.cnt = 0,
+	.flage = 0,
+	.case_value = 0,
+	.compare_value = 5000,
+	.send_next_delay = 0,
+	.retry_cnt = 0,
+	.data_return_flage = 0,
+	.hope_return_data1 = "",
+	.hope_return_data2 = "",
+	.connect_dispose = NULL,
+};
 
-uint32_t CompareValue = 5000; // 每隔 Ms 发送一次数据
-uint32_t SendNextDelay = 0;	  // 接收SendConfigFunction函数最后一个参数,最终传递给 ConfigModuleNoBlockCnt 控制写一条数据发送的时间
-int Cnt = 0;				  // 记录运行状态发送的次数
-char DataReturnFlage = 0;	  // 是否返回了预期的数据
-
-#define HOPE_RETURN_DATA1_LEN 20
-#define HOPE_RETURN_DATA2_LEN 20
-char HopeReturnData1[HOPE_RETURN_DATA1_LEN] = ""; // 存储希望返回的数据
-char HopeReturnData2[HOPE_RETURN_DATA2_LEN] = ""; // 存储希望返回的数据
-
-void (*ConfigConnectDispose)(char *data, int len); // 定义一个函数指针变量,用来处理模块返回的数据
 void ConfigModuleRunNext(int delay);
 /*********************************************************************************************************/
 

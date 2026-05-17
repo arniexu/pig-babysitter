@@ -58,15 +58,39 @@
 //	}
 //}
 
-char network_config_flage = 0; // 是不是在配网
+network_module_config_state_t g_network_module_config_state = {
+	.network_config_flage = 0,
+	.network_flag = 0,
+	.ssid = "",
+	.password = "",
+	.mac = "",
+	.ip = "0.0.0.0",
+};
 
-char network_config_ssid[32] = "";	   // 记录路由器名称
-char network_config_password[64] = ""; // 记录密码
+network_module_recv_parse_state_t g_network_module_recv_parse_state = {
+	.flag = 0,
+	.cnt = 0,
+	.count = 0,
+	.start = 0,
+	.id = 0,
+	.buff = {0},
+	.buff_len = 0,
+	.data_len = 0,
+};
 
-char network_config_mac[18] = "";		// 记录设备MAC
-char network_config_ip[21] = "0.0.0.0"; // 记录设备连接路由器分得的IP
+#define network_config_ssid (g_network_module_config_state.ssid)
+#define network_config_password (g_network_module_config_state.password)
+#define network_config_mac (g_network_module_config_state.mac)
+#define network_config_ip (g_network_module_config_state.ip)
 
-uint8_t network_flag = 0; // 驻网标志
+#define NETRECV_FLAG (g_network_module_recv_parse_state.flag)
+#define NETRECV_CNT (g_network_module_recv_parse_state.cnt)
+#define NETRECV_COUNT (g_network_module_recv_parse_state.count)
+#define NETRECV_START (g_network_module_recv_parse_state.start)
+#define NETRECV_ID (g_network_module_recv_parse_state.id)
+#define NETRECV_BUFF (g_network_module_recv_parse_state.buff)
+#define NETRECV_BUFF_LEN (g_network_module_recv_parse_state.buff_len)
+#define NETRECV_DATA_LEN (g_network_module_recv_parse_state.data_len)
 
 // 获取模组MAC地址
 char network_module_get_mac(char *data, int length)
@@ -288,15 +312,6 @@ char network_module_apuconfig(void)
 	network_config_flage = 0;												 // 清除配网标志
 	return config_success;
 }
-
-char NETRECV_FLAG = 0;
-char NETRECV_CNT = 0;
-char NETRECV_COUNT = 0;
-char NETRECV_START = 0;
-char NETRECV_ID = 0;
-char NETRECV_BUFF[20];
-char NETRECV_BUFF_LEN = 0;
-int NETRECV_DATA_LEN = 0; //
 
 /**
  * @brief  解析NB模组返回的网络数据
