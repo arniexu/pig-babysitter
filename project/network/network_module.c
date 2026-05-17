@@ -124,14 +124,14 @@ char network_module_udp_data(char *data, int length)
 	if (str != NULL)
 	{
 		memset(network_config_ssid, 0, sizeof(network_config_ssid));
-		sprintf(network_config_ssid, "%s", str);
+		snprintf(network_config_ssid, sizeof(network_config_ssid), "%s", str);
 		cStringRestore();
 
 		str = StrBetwString(data, "\"pwd\":\"", "\""); // 获取pwd
 		if (str != NULL)
 		{
 			memset(network_config_password, 0, sizeof(network_config_password));
-			sprintf(network_config_password, "%s", str);
+			snprintf(network_config_password, sizeof(network_config_password), "%s", str);
 			flag = 1;
 		}
 	}
